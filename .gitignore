@@ -1,0 +1,49 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pkl
+*.mypy_cache/
+*.pytest_cache/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Logs and local environment
+*.log
+*.env
+.env.*
+
+# DLT cache and metadata
+.dlt/
+.dlt_data/
+.cache/
+
+# dbt build artifacts
+dbt_modules/
+target/
+dbt_packages/
+logs/
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# VSCode and IDEs
+.vscode/
+.idea/
+
+# Docker
+*.pid
+*.pid.lock
+docker-compose.override.yml
+**/tmp/
+**/data/
+
+# OS files
+.DS_Store
+Thumbs.db
+
