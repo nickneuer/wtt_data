@@ -47,3 +47,6 @@ docker-compose.override.yml
 .DS_Store
 Thumbs.db
 
+# Dagster / DLT 
+dagster/dagster_home/
+dagster/var/
