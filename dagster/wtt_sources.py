@@ -11,32 +11,49 @@ from dlt.sources.helpers.rest_client.paginators import OffsetPaginator
 # stop_after_empty_page: Whether pagination should stop when a page contains no result items. Defaults to True.
 
 # Initialize the REST client with the base URL
-wtt_client = RESTClient(
-    base_url="https://wttcmsapigateway-new.azure-api.net/ttu",
-    paginator=OffsetPaginator(
-        limit=10,
-        offset=1,
-        offset_param="Page",
-        limit_param="Limit",
-        maximum_offset=100,
-        total_path=None
-    ),
-    data_selector="Result"
-)
+def make_wtt_client():
+    wtt_client = RESTClient(
+        base_url="https://wttcmsapigateway-new.azure-api.net/ttu",
+        paginator=OffsetPaginator(
+            limit=10,
+            offset=1,
+            offset_param="Page",
+            limit_param="Limit",
+            maximum_offset=100,
+            total_path=None
+        ),
+        data_selector="Result"
+    )
+    return wtt_client
 
-@dlt.resource(name="wtt_events_source", write_disposition="append")
+
+@dlt.resource(name="wtt_events", write_disposition="append")
 def wtt_events():
+    client = make_wtt_client()
+    for page_data in client.paginate("/Events/GetEvents", method="GET"):
+        for result in page_data:
 
-    # Use paginate to handle offset-based pagination
-    for page_data in wtt_client.paginate(
-        "/Events/GetEvents",
-        method="GET"
-    ):
-        print("page", page_data)
+            yield result
+
+# see docs https://dlthub.com/docs/general-usage/resource#process-resources-with-dlttransformer 
+@dlt.transformer(data_from=wtt_events, name="wtt_matches")
+def wtt_matches(event_item):
+    client = make_wtt_client()
+    event_id = event_item["EventId"]
+    payload = {"EventId": event_id}
+    r = client.get("/Matches/GetMatches", params=payload)
+    match_resp = r.json()
+    for match in match_resp["Result"]:
+        yield match
+
+
+@dlt.resource(name="wtt_players", write_disposition="append")
+def wtt_players():
+    client = make_wtt_client()
+    for page_data in client.paginate("/Players/GetPlayers", method="GET"):
         for result in page_data:
             yield result
 
-
 @dlt.source(name="wtt_source")
 def wtt_source():
-    return wtt_events()
+    return wtt_events, wtt_matches, wtt_players

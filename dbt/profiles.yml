@@ -1,0 +1,11 @@
+wtt_data:
+
+  outputs:
+    dev:
+      type: duckdb
+      path: s3://wtt-data/wtt.duckdb
+      extensions:
+        - httpfs
+      threads: 4
+
+  target: dev

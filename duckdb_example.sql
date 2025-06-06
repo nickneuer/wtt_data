@@ -19,5 +19,12 @@ CREATE SECRET (
 
 drop table if exists wtt_events;
 CREATE TABLE wtt_events AS 
-SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_events_source/*.parquet');
+SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_events/*.parquet');
 
+drop table if exists wtt_matches;
+CREATE TABLE wtt_matches AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_matches/*.parquet');
+
+drop table if exists wtt_players;
+CREATE TABLE wtt_players AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_players/*.parquet');

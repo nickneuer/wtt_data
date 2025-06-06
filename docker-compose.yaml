@@ -12,31 +12,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  # minio:
-  #   image: minio/minio
-  #   command: server /data --console-address ":9001"
-  #   environment:
-  #     MINIO_ROOT_USER: minio
-  #     MINIO_ROOT_PASSWORD: minio123
-  #   ports:
-  #     - "9000:9000"  # S3 API
-  #     - "9001:9001"  # Console UI
-  #   volumes:
-  #     - minio_data:/data
-
-  # minio_setup:
-  #   image: minio/mc
-  #   depends_on:
-  #     - minio
-  #   entrypoint: ["/bin/sh", "-c", "/init/init-minio.sh"]
-  #   environment:
-  #     MINIO_ROOT_USER: minio
-  #     MINIO_ROOT_PASSWORD: minio123
-  #     MINIO_USER: dagster
-  #     MINIO_PASSWORD: dagster123
-  #   volumes:
-  #     - ./init:/init
-
   localstack:
     image: localstack/localstack:latest
     container_name: localstack
@@ -85,5 +60,3 @@ services:
 
 volumes:
   pgdata:
-  minio_data:
-
