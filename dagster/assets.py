@@ -10,7 +10,7 @@ import os
     dlt_pipeline=dlt.pipeline(
         pipeline_name="wtt_events_pipeline",
         destination="filesystem",  # this uses S3-compatible interface when configured
-        dataset_name="wtt_events_data"
+        dataset_name="wtt_data"
     ),
     name="wtt_events",
     group_name="wtt",

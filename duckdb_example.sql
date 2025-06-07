@@ -17,14 +17,18 @@ CREATE SECRET (
     URL_COMPATIBILITY_MODE false
 );
 
-drop table if exists wtt_events;
-CREATE TABLE wtt_events AS 
+drop table if exists events;
+CREATE TABLE events AS 
 SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_events/*.parquet');
 
-drop table if exists wtt_matches;
-CREATE TABLE wtt_matches AS 
+drop table if exists matches;
+CREATE TABLE matches AS 
 SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_matches/*.parquet');
 
-drop table if exists wtt_players;
-CREATE TABLE wtt_players AS 
+drop table if exists players;
+CREATE TABLE players AS 
 SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_players/*.parquet');
+
+drop table if exists match_stats;
+CREATE TABLE match_stats AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_events_data/wtt_match_stats/*.parquet');

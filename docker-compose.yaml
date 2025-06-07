@@ -60,3 +60,6 @@ services:
 
 volumes:
   pgdata:
+
+  localstack-data:
+  # TODO: figure out other volumes I want to include
