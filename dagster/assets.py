@@ -12,7 +12,7 @@ import os
         destination="filesystem",  # this uses S3-compatible interface when configured
         dataset_name="wtt_data"
     ),
-    name="wtt_events",
+    name="wtt_ingestion_pipeline",
     group_name="wtt",
 )
 def dagster_wtt_assets(context: AssetExecutionContext, dlt: DagsterDltResource):

@@ -1,11 +1,23 @@
 
+INSTALL ducklake;
+INSTALL postgres;
 INSTALL httpfs;
 LOAD httpfs;
 
--- SET s3_url_style='path';
--- SET s3_endpoint='http://localhost:4566';
--- SET s3_access_key_id='dagster' ;
--- SET s3_secret_access_key='dagster123';
+
+-- Make sure that the database `ducklake_catalog` exists in PostgreSQL.
+ATTACH 'ducklake:postgres:dbname=ducklake ' AS my_ducklake
+     (DATA_PATH 's3://wtt-data/ducklake/');
+USE my_ducklake;
+
+CREATE SECRET (
+    TYPE postgres,
+    HOST 'localhost',
+    PORT 5432,
+    DATABASE 'ducklake',
+    USER 'ducklake',
+    PASSWORD 'ducklake'
+);
 
 CREATE SECRET (
     TYPE s3,
@@ -17,25 +29,6 @@ CREATE SECRET (
     URL_COMPATIBILITY_MODE false
 );
 
-drop table if exists events;
-CREATE TABLE events AS 
-SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_events/*.parquet');
-
-drop table if exists matches;
-CREATE TABLE matches AS 
-SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_matches/*.parquet');
-
-drop table if exists players;
-CREATE TABLE players AS 
-SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_players/*.parquet');
-
-drop table if exists match_stats;
-CREATE TABLE match_stats AS 
-SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_match_stats/*.parquet');
-
-/* woah this is cool
-can just create the table direct from the API call and transform the json with unnest
-*/
 drop table if exists ratings_raw;
 create table ratings_raw 
 as select result
@@ -64,4 +57,3 @@ with parsed as (
 )
 select unnest(result)
 from parsed;
-
