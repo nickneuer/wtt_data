@@ -57,3 +57,21 @@ with parsed as (
 )
 select unnest(result)
 from parsed;
+
+
+
+drop table if exists events;
+CREATE TABLE events AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_events/*.parquet');
+
+drop table if exists matches;
+CREATE TABLE matches AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_matches/*.parquet');
+
+drop table if exists players;
+CREATE TABLE players AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_players/*.parquet');
+
+drop table if exists match_stats;
+CREATE TABLE match_stats AS 
+SELECT * FROM read_parquet('s3://wtt-data/wtt_data/wtt_match_stats/*.parquet');

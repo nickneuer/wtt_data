@@ -1,0 +1,21 @@
+version: 2
+sources:
+  - name: wtt_api
+    tables:
+      - name: rankings_adult_men
+        config:
+          external_location: "https://wttcmsapigateway-new.azure-api.net/ttu/Rankings/GetRankingIndividuals?SubEventCode=MS&CategoryCode=SEN"
+      - name: rankings_adult_women
+        config:
+          external_location: "https://wttcmsapigateway-new.azure-api.net/ttu/Rankings/GetRankingIndividuals?SubEventCode=WS&CategoryCode=SEN"
+
+  - name: wtt_dlt_data
+    meta:
+      # TODO: could make this get the last dlt load ID from env variable rather than `*.parquet`
+      # then I could do incremental loading
+      external_location: "s3://wtt-data/wtt_data/wtt_{name}/*.parquet"
+    tables:
+      - name: events
+      - name: players
+      - name: matches
+      - name: match_stats

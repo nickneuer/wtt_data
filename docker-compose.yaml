@@ -23,11 +23,13 @@ services:
       - AWS_DEFAULT_REGION=us-east-1
       - AWS_ACCESS_KEY_ID=dagster
       - AWS_SECRET_ACCESS_KEY=dagster123
-      - DATA_DIR=/tmp/localstack-data
+      - PERSISTENCE=1
+      - DATA_DIR=/var/lib/localstack/data
+
     volumes:
       - "./localstack:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - ./localstack-data:/tmp/localstack-data # persist storage
+      - ./localstack-data:/var/lib/localstack/data # persist storage
 
   # Optional: init script container to create bucket on startup
   s3-init:
@@ -60,6 +62,4 @@ services:
 
 volumes:
   pgdata:
-
-  localstack-data:
   # TODO: figure out other volumes I want to include
