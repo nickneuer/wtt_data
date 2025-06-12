@@ -13,7 +13,7 @@ sources:
     meta:
       # TODO: could make this get the last dlt load ID from env variable rather than `*.parquet`
       # then I could do incremental loading
-      external_location: "s3://wtt-data/wtt_data/wtt_{name}/*.parquet"
+      external_location: "read_parquet('s3://wtt-data/wtt_data/wtt_{name}/*.parquet')"
     tables:
       - name: events
       - name: players

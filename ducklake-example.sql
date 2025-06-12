@@ -4,7 +4,6 @@ INSTALL postgres;
 INSTALL httpfs;
 LOAD httpfs;
 
-
 -- Make sure that the database `ducklake_catalog` exists in PostgreSQL.
 ATTACH 'ducklake:postgres:dbname=ducklake ' AS my_ducklake
      (DATA_PATH 's3://wtt-data/ducklake/');

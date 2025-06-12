@@ -3,11 +3,6 @@ wtt_data:
   outputs:
     dev:
       type: duckdb
-      # attach:
-      #   - path: 'ducklake:postgres:dbname=ducklake'
-      #     alias: wtt_ducklake
-      #     options:
-      #       data_path: 's3://wtt-data/ducklake/'
 
       extensions:
         - httpfs
@@ -16,11 +11,12 @@ wtt_data:
 
       secrets:
         - type: postgres
-          host: 'localhost'
+          name: pg_metadata
+          host: "localhost"
           port: 5432
-          database: 'ducklake'
-          user: 'ducklake'
-          password: 'ducklake'
+          user: ducklake
+          password: "ducklake"
+          database: ducklake
 
         - type: s3
           key_id: 'dagster'
@@ -30,7 +26,15 @@ wtt_data:
           url_style: 'path'
           url_compatibility_mode: false
 
+      attach:
+        - path: "ducklake:postgres:dbname=ducklake "
+          alias: wtt_ducklake
+          options:
+            meta_secret: pg_metadata
+            data_path: s3://wtt-data/ducklake/
 
-      threads: 4
+      database: wtt_ducklake
+
+      threads: 1
 
   target: dev
