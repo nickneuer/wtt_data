@@ -35,6 +35,6 @@ wtt_data:
 
       database: wtt_ducklake
 
-      threads: 1
+      threads: 4
 
   target: dev
