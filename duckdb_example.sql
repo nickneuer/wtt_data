@@ -11,7 +11,7 @@ CREATE SECRET (
     TYPE s3,
     KEY_ID 'dagster',
     SECRET 'dagster123',
-    ENDPOINT 'localhost:4566',
+    ENDPOINT 'localhost:9000',
     USE_SSL false,
     URL_STYLE 'path',
     URL_COMPATIBILITY_MODE false

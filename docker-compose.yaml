@@ -12,39 +12,64 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  localstack:
-    image: localstack/localstack:latest
-    container_name: localstack
+  # localstack:
+  #   image: localstack/localstack:latest
+  #   container_name: localstack
+  #   ports:
+  #     - "4566:4566"  # Main gateway for all services
+  #   environment:
+  #     - SERVICES=s3
+  #     - DEBUG=1
+  #     - AWS_DEFAULT_REGION=us-east-1
+  #     - AWS_ACCESS_KEY_ID=dagster
+  #     - AWS_SECRET_ACCESS_KEY=dagster123
+  #     - PERSISTENCE=1
+  #     - DATA_DIR=/var/lib/localstack/data
+
+  #   volumes:
+  #     - "./localstack:/var/lib/localstack"
+  #     - "/var/run/docker.sock:/var/run/docker.sock"
+  #     - ./localstack-data:/var/lib/localstack/data # persist storage
+
+  # # Optional: init script container to create bucket on startup
+  # s3-init:
+  #   image: amazon/aws-cli
+  #   depends_on:
+  #     - localstack
+  #   entrypoint: >
+  #     sh -c "
+  #       until aws --endpoint-url=http://localstack:4566 s3api create-bucket --bucket wtt-data; do
+  #         echo 'Waiting for LocalStack...'; sleep 2;
+  #       done
+  #     "
+  #   environment:
+  #     AWS_ACCESS_KEY_ID: dagster
+  #     AWS_SECRET_ACCESS_KEY: dagster123
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
     ports:
-      - "4566:4566"  # Main gateway for all services
-    environment:
-      - SERVICES=s3
-      - DEBUG=1
-      - AWS_DEFAULT_REGION=us-east-1
-      - AWS_ACCESS_KEY_ID=dagster
-      - AWS_SECRET_ACCESS_KEY=dagster123
-      - PERSISTENCE=1
-      - DATA_DIR=/var/lib/localstack/data
-
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # Console UI
     volumes:
-      - "./localstack:/var/lib/localstack"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - ./localstack-data:/var/lib/localstack/data # persist storage
+      - ./minio-data:/data
 
-  # Optional: init script container to create bucket on startup
-  s3-init:
-    image: amazon/aws-cli
+  minio_setup:
+    image: minio/mc
     depends_on:
-      - localstack
-    entrypoint: >
-      sh -c "
-        until aws --endpoint-url=http://localstack:4566 s3api create-bucket --bucket wtt-data; do
-          echo 'Waiting for LocalStack...'; sleep 2;
-        done
-      "
+      - minio
+    entrypoint: ["/bin/sh", "-c", "/init/init-minio.sh"]
     environment:
-      AWS_ACCESS_KEY_ID: dagster
-      AWS_SECRET_ACCESS_KEY: dagster123
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: minio123
+      MINIO_USER: dagster
+      MINIO_PASSWORD: dagster123
+    volumes:
+      - ./init:/init
 
   dagster:
     build: ./dagster
@@ -58,7 +83,7 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
-      - localstack
+      - minio
 
 volumes:
   pgdata:
