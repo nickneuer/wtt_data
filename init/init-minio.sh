@@ -18,4 +18,3 @@ mc admin user add local "$MINIO_USER" "$MINIO_PASSWORD" || true
 
 # Attach policy to user
 mc admin policy attach local wtt-policy --user="$MINIO_USER"
-mc admin policy attach local readwrite --user="$MINIO_USER"
