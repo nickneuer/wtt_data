@@ -1,0 +1,92 @@
+cubes:
+  - name: player_ratings
+    sql_table: player_ratings
+    data_source: default
+
+    joins: 
+      - name: players
+        relationship: one_to_one
+        sql: "{CUBE.ittf_id} = {players.ittf_id}"      
+
+    dimensions:
+      - name: ittf_id
+        sql: ittf_id
+        type: string
+        primary_key: true
+
+      - name: player_name
+        sql: player_name
+        type: string
+
+      - name: country_code
+        sql: country_code
+        type: string
+
+      - name: country_name
+        sql: country_name
+        type: string
+
+      - name: association_country_code
+        sql: association_country_code
+        type: string
+
+      - name: association_country_name
+        sql: association_country_name
+        type: string
+
+      - name: category_code
+        sql: category_code
+        type: string
+
+      - name: age_category_code
+        sql: age_category_code
+        type: string
+
+      - name: sub_event_code
+        sql: sub_event_code
+        type: string
+
+      - name: ranking_year
+        sql: ranking_year
+        type: string
+
+      - name: ranking_month
+        sql: ranking_month
+        type: string
+
+      - name: ranking_week
+        sql: ranking_week
+        type: string
+
+      - name: ranking_points_ytd
+        sql: ranking_points_ytd
+        type: number
+
+      - name: ranking_position
+        sql: ranking_position
+        type: number
+
+      - name: current_rank
+        sql: current_rank
+        type: number
+
+      - name: previous_rank
+        sql: previous_rank
+        type: number
+
+      - name: ranking_difference
+        sql: ranking_difference
+        type: number
+
+      - name: publish_date
+        sql: publish_date
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

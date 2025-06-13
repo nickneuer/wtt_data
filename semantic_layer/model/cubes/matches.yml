@@ -1,0 +1,284 @@
+cubes:
+  - name: matches
+    sql_table: matches
+    data_source: default
+
+    joins:
+      - name: events
+        sql: "{CUBE.event_id} = {events.event_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: event_id
+        sql: event_id
+        type: string
+
+      - name: match_id
+        sql: match_id
+        type: string
+        primary_key: true
+
+      - name: match_key
+        sql: match_key
+        type: string
+
+      - name: sub_event_code
+        sql: sub_event_code
+        type: string
+
+      - name: match_name
+        sql: match_name
+        type: string
+
+      - name: group1_id
+        sql: group1_id
+        type: string
+
+      - name: player1_id
+        sql: player1_id
+        type: string
+
+      - name: player1_name
+        sql: player1_name
+        type: string
+
+      - name: player1_given_name
+        sql: player1_given_name
+        type: string
+
+      - name: player1_family_name
+        sql: player1_family_name
+        type: string
+
+      - name: player1_family_name_first
+        sql: player1_family_name_first
+        type: string
+
+      - name: player1_country_code
+        sql: player1_country_code
+        type: string
+
+      - name: player1_country_name
+        sql: player1_country_name
+        type: string
+
+      - name: player1_gender
+        sql: player1_gender
+        type: string
+
+      - name: player1_age
+        sql: player1_age
+        type: string
+
+      - name: player1_dob
+        sql: player1_dob
+        type: string
+
+      - name: player1_handedness
+        sql: player1_handedness
+        type: string
+
+      - name: player1_grip
+        sql: player1_grip
+        type: string
+
+      - name: player1_style
+        sql: player1_style
+        type: string
+
+      - name: player1_equipment_sponsor
+        sql: player1_equipment_sponsor
+        type: string
+
+      - name: player1_blade_type
+        sql: player1_blade_type
+        type: string
+
+      - name: player1_racket_coloring_a
+        sql: player1_racket_coloring_a
+        type: string
+
+      - name: player1_racket_coloring_b
+        sql: player1_racket_coloring_b
+        type: string
+
+      - name: player1_racket_covering_a
+        sql: player1_racket_covering_a
+        type: string
+
+      - name: player1_racket_covering_b
+        sql: player1_racket_covering_b
+        type: string
+
+      - name: player1_active_since
+        sql: player1_active_since
+        type: string
+
+      - name: player1d_family_name_first
+        sql: player1d_family_name_first
+        type: string
+
+      - name: player1d_equipment_sponsor
+        sql: player1d_equipment_sponsor
+        type: string
+
+      - name: player1d_blade_type
+        sql: player1d_blade_type
+        type: string
+
+      - name: player1d_racket_coloring_a
+        sql: player1d_racket_coloring_a
+        type: string
+
+      - name: player1d_racket_coloring_b
+        sql: player1d_racket_coloring_b
+        type: string
+
+      - name: player1d_racket_covering_a
+        sql: player1d_racket_covering_a
+        type: string
+
+      - name: player1d_racket_covering_b
+        sql: player1d_racket_covering_b
+        type: string
+
+      - name: player1d_active_since
+        sql: player1d_active_since
+        type: string
+
+      - name: group2_id
+        sql: group2_id
+        type: string
+
+      - name: player2_id
+        sql: player2_id
+        type: string
+
+      - name: player2_name
+        sql: player2_name
+        type: string
+
+      - name: player2_given_name
+        sql: player2_given_name
+        type: string
+
+      - name: player2_family_name
+        sql: player2_family_name
+        type: string
+
+      - name: player2_family_name_first
+        sql: player2_family_name_first
+        type: string
+
+      - name: player2_country_code
+        sql: player2_country_code
+        type: string
+
+      - name: player2_country_name
+        sql: player2_country_name
+        type: string
+
+      - name: player2_gender
+        sql: player2_gender
+        type: string
+
+      - name: player2_age
+        sql: player2_age
+        type: string
+
+      - name: player2_dob
+        sql: player2_dob
+        type: string
+
+      - name: player2_equipment_sponsor
+        sql: player2_equipment_sponsor
+        type: string
+
+      - name: player2_blade_type
+        sql: player2_blade_type
+        type: string
+
+      - name: player2_racket_coloring_a
+        sql: player2_racket_coloring_a
+        type: string
+
+      - name: player2_racket_coloring_b
+        sql: player2_racket_coloring_b
+        type: string
+
+      - name: player2_racket_covering_a
+        sql: player2_racket_covering_a
+        type: string
+
+      - name: player2_racket_covering_b
+        sql: player2_racket_covering_b
+        type: string
+
+      - name: player2_active_since
+        sql: player2_active_since
+        type: string
+
+      - name: player2d_family_name_first
+        sql: player2d_family_name_first
+        type: string
+
+      - name: player2d_equipment_sponsor
+        sql: player2d_equipment_sponsor
+        type: string
+
+      - name: player2d_blade_type
+        sql: player2d_blade_type
+        type: string
+
+      - name: player2d_racket_coloring_a
+        sql: player2d_racket_coloring_a
+        type: string
+
+      - name: player2d_racket_coloring_b
+        sql: player2d_racket_coloring_b
+        type: string
+
+      - name: player2d_racket_covering_a
+        sql: player2d_racket_covering_a
+        type: string
+
+      - name: player2d_racket_covering_b
+        sql: player2d_racket_covering_b
+        type: string
+
+      - name: player2d_active_since
+        sql: player2d_active_since
+        type: string
+
+      - name: match_number
+        sql: match_number
+        type: string
+
+      - name: match_score
+        sql: match_score
+        type: string
+
+      - name: match_result
+        sql: match_result
+        type: string
+
+      - name: player2_handedness
+        sql: player2_handedness
+        type: string
+
+      - name: player2_grip
+        sql: player2_grip
+        type: string
+
+      - name: player2_style
+        sql: player2_style
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

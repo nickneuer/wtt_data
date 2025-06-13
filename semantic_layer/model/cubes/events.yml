@@ -1,0 +1,85 @@
+cubes:
+  - name: events
+    sql_table: events
+    data_source: default
+
+    joins: []
+
+    dimensions:
+      - name: event_id
+        sql: event_id
+        type: string
+        primary_key: true
+
+      - name: event_short_name
+        sql: event_short_name
+        type: string
+
+      - name: event_long_name
+        sql: event_long_name
+        type: string
+
+      - name: event_venue
+        sql: event_venue
+        type: string
+
+      - name: event_venue_name
+        sql: event_venue_name
+        type: string
+
+      - name: event_location
+        sql: event_location
+        type: string
+
+      - name: event_location_name
+        sql: event_location_name
+        type: string
+
+      - name: event_city
+        sql: event_city
+        type: string
+
+      - name: event_state
+        sql: event_state
+        type: string
+
+      - name: event_country_code
+        sql: event_country_code
+        type: string
+
+      - name: event_country_name
+        sql: event_country_name
+        type: string
+
+      - name: event_continent
+        sql: event_continent
+        type: string
+
+      - name: event_sub_continent
+        sql: event_sub_continent
+        type: string
+
+      - name: event_start_date
+        sql: event_start_date
+        type: string
+
+      - name: event_end_date
+        sql: event_end_date
+        type: string
+
+      - name: event_type_code
+        sql: event_type_code
+        type: string
+
+      - name: event_type_description
+        sql: event_type_description
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

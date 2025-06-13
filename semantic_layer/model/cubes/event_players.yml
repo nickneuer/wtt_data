@@ -1,0 +1,36 @@
+cubes:
+  - name: event_players
+    sql_table: event_players
+    data_source: default
+
+    joins:
+      - name: events
+        sql: "{CUBE.event_id} = {events.event_id}"
+        relationship: many_to_one
+
+      - name: players
+        relationship: many_to_one
+        sql: "{CUBE.player_id} = {players.ittf_id}"
+
+    dimensions:
+      - name: event_player_id
+        sql: event_player_id
+        type: string
+        primary_key: true
+
+      - name: event_id
+        sql: event_id
+        type: string
+
+      - name: player_id
+        sql: player_id
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

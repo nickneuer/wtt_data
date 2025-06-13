@@ -1,0 +1,97 @@
+# cube: competitor_match_stats
+
+# sql_table: competitor_match_stats
+
+# measures:
+#   total_matches:
+#     type: count
+#     description: Total matches played by the competitor
+
+#   total_wins:
+#     type: count
+#     filters:
+#       - sql: ${CUBE}.is_winner = true
+#     description: Matches where this competitor won
+
+#   win_rate:
+#     type: number
+#     sql: ${total_wins} * 1.0 / NULLIF(${total_matches}, 0)
+#     description: Win percentage
+
+#   avg_points_won:
+#     type: avg
+#     sql: ${CUBE}.pts_won_value
+#     description: Avg points won per match
+
+#   avg_games_played:
+#     type: number
+#     sql: (
+#       CASE WHEN ${CUBE}.g1 IS NOT NULL THEN 1 ELSE 0 END +
+#       CASE WHEN ${CUBE}.g2 IS NOT NULL THEN 1 ELSE 0 END +
+#       CASE WHEN ${CUBE}.g3 IS NOT NULL THEN 1 ELSE 0 END +
+#       CASE WHEN ${CUBE}.g4 IS NOT NULL THEN 1 ELSE 0 END +
+#       CASE WHEN ${CUBE}.g5 IS NOT NULL THEN 1 ELSE 0 END +
+#       CASE WHEN ${CUBE}.g6 IS NOT NULL THEN 1 ELSE 0 END +
+#       CASE WHEN ${CUBE}.g7 IS NOT NULL THEN 1 ELSE 0 END
+#     )::float
+#     description: Number of games played in match
+
+# dimensions:
+#   match_id:
+#     type: string
+#     primary_key: true
+#     sql: ${CUBE}.match_id
+
+#   player_id:
+#     type: string
+#     sql: ${CUBE}.player_id
+
+#   player_name:
+#     type: string
+#     sql: ${CUBE}.family_name
+
+#   player_gender:
+#     type: string
+#     sql: ${CUBE}.gender
+
+#   player_organization:
+#     type: string
+#     sql: ${CUBE}.organization
+
+#   opponent_id:
+#     type: string
+#     sql: ${CUBE}.opponent_id
+
+#   opponent_organization:
+#     type: string
+#     sql: ${CUBE}.opponent_org
+
+#   result:
+#     type: string
+#     sql: ${CUBE}.wlt
+
+#   team_name:
+#     type: string
+#     sql: ${CUBE}.team_name
+
+#   venue_name:
+#     type: string
+#     sql: ${CUBE}.venue_name
+
+#   match_score:
+#     type: string
+#     sql: ${CUBE}.match_score
+
+#   category_code:
+#     type: string
+#     sql: ${CUBE}.category_code
+
+#   age_category_code:
+#     type: string
+#     sql: ${CUBE}.age_category_code
+
+# time_dimensions:
+#   start_date_utc:
+#     type: time
+#     sql: ${CUBE}.start_date_utc
+#     description: Match start time (UTC)

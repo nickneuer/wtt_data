@@ -1,0 +1,88 @@
+cubes:
+  - name: players
+    sql_table: players
+    data_source: default
+
+    joins:
+      - name: player_ratings
+        relationship: one_to_one
+        sql: "{CUBE.ittf_id} = {player_ratings.ittf_id}"
+
+    dimensions:
+      - name: ittf_id
+        sql: ittf_id
+        type: string
+        primary_key: true
+
+      - name: player_name
+        sql: player_name
+        type: string
+
+      - name: player_given_name
+        sql: player_given_name
+        type: string
+
+      - name: player_family_name
+        sql: player_family_name
+        type: string
+
+      - name: player_family_name_first
+        sql: player_family_name_first
+        type: string
+
+      - name: country_code
+        sql: country_code
+        type: string
+
+      - name: country_name
+        sql: country_name
+        type: string
+
+      - name: nationality_code
+        sql: nationality_code
+        type: string
+
+      - name: nationality_name
+        sql: nationality_name
+        type: string
+
+      - name: organization_code
+        sql: organization_code
+        type: string
+
+      - name: organization_name
+        sql: organization_name
+        type: string
+
+      - name: gender
+        sql: gender
+        type: string
+
+      - name: age
+        sql: age
+        type: string
+
+      - name: head_shot
+        sql: head_shot
+        type: string
+
+      - name: handedness
+        sql: handedness
+        type: string
+
+      - name: grip
+        sql: grip
+        type: string
+
+      - name: birth_date
+        sql: birth_date
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

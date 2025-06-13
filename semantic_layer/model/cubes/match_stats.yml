@@ -1,0 +1,524 @@
+cubes:
+  - name: match_stats
+    sql_table: match_stats
+    data_source: default
+
+    joins:
+      - name: events
+        sql: "{CUBE.event_id} = {events.event_id}"
+        relationship: many_to_one
+
+      - name: matches
+        sql: "{CUBE.match_id} = {matches.match_id}"
+        relationship: one_to_one
+
+      - name: players
+        sql: "{CUBE.competitor1_id} = {players.ittf_id} or {CUBE.competitor2_id} = {players.ittf_id}"
+        relationship: many_to_one
+
+    dimensions:
+      - name: match_stats_id
+        sql: match_stats_id
+        type: string
+        primary_key: true
+
+      - name: event_id
+        sql: event_id
+        type: string
+
+      - name: competition_code
+        sql: competition_code
+        type: string
+
+      - name: category_code
+        sql: category_code
+        type: string
+
+      - name: age_category_code
+        sql: age_category_code
+        type: string
+
+      - name: para_class
+        sql: para_class
+        type: string
+
+      - name: message_source
+        sql: message_source
+        type: string
+
+      - name: message_type
+        sql: message_type
+        type: string
+
+      - name: match_id
+        sql: match_id
+        type: string
+
+      - name: sub_event_code
+        sql: sub_event_code
+        type: string
+
+      - name: header_version
+        sql: header_version
+        type: string
+
+      - name: header_result_status
+        sql: header_result_status
+        type: string
+
+      - name: header_feed_flag
+        sql: header_feed_flag
+        type: string
+
+      - name: header_logical_date
+        sql: header_logical_date
+        type: string
+
+      - name: header_logical_time
+        sql: header_logical_time
+        type: string
+
+      - name: header_utc_date
+        sql: header_utc_date
+        type: string
+
+      - name: header_utc_time
+        sql: header_utc_time
+        type: string
+
+      - name: header_local_date
+        sql: header_local_date
+        type: string
+
+      - name: header_local_time
+        sql: header_local_time
+        type: string
+
+      - name: table_no
+        sql: table_no
+        type: string
+
+      - name: duration
+        sql: duration
+        type: string
+
+      - name: sub_event_name
+        sql: sub_event_name
+        type: string
+
+      - name: match_description
+        sql: match_description
+        type: string
+
+      - name: gender
+        sql: gender
+        type: string
+
+      - name: best_of_x_games
+        sql: best_of_x_games
+        type: string
+
+      - name: match_number
+        sql: match_number
+        type: string
+
+      - name: phase_name
+        sql: phase_name
+        type: string
+
+      - name: venue
+        sql: venue
+        type: string
+
+      - name: venue_name
+        sql: venue_name
+        type: string
+
+      - name: max_points_per_game
+        sql: max_points_per_game
+        type: string
+
+      - name: advantage_per_game
+        sql: advantage_per_game
+        type: string
+
+      - name: sudden_death_point
+        sql: sudden_death_point
+        type: string
+
+      - name: ttr_review
+        sql: ttr_review
+        type: string
+
+      - name: max_challenges_per_competitor
+        sql: max_challenges_per_competitor
+        type: string
+
+      - name: yellow_card
+        sql: yellow_card
+        type: string
+
+      - name: yellow_red1
+        sql: yellow_red1
+        type: string
+
+      - name: yellow_red2
+        sql: yellow_red2
+        type: string
+
+      - name: competitor1_id
+        sql: competitor1_id
+        type: string
+
+      - name: competitor1_type
+        sql: competitor1_type
+        type: string
+
+      - name: competitor1_wlt
+        sql: competitor1_wlt
+        type: string
+
+      - name: competitor1_org_name
+        sql: competitor1_org_name
+        type: string
+
+      - name: competitor1_pts_won_value
+        sql: competitor1_pts_won_value
+        type: string
+
+      - name: competitor1_lead_max_value
+        sql: competitor1_lead_max_value
+        type: string
+
+      - name: competitor1_lead_max_agnst_value
+        sql: competitor1_lead_max_agnst_value
+        type: string
+
+      - name: competitor1_pts_service_won_value
+        sql: competitor1_pts_service_won_value
+        type: string
+
+      - name: competitor1_pts_opp_service_won_value
+        sql: competitor1_pts_opp_service_won_value
+        type: string
+
+      - name: competitor1_pts_service_lost_value
+        sql: competitor1_pts_service_lost_value
+        type: string
+
+      - name: competitor1_pts_opp_service_lost_value
+        sql: competitor1_pts_opp_service_lost_value
+        type: string
+
+      - name: competitor1_pts_consec_value
+        sql: competitor1_pts_consec_value
+        type: string
+
+      - name: competitor1_def_ovc_max_value
+        sql: competitor1_def_ovc_max_value
+        type: string
+
+      - name: competitor2_id
+        sql: competitor2_id
+        type: string
+
+      - name: competitor2_type
+        sql: competitor2_type
+        type: string
+
+      - name: competitor2_wlt
+        sql: competitor2_wlt
+        type: string
+
+      - name: competitor2_org_name
+        sql: competitor2_org_name
+        type: string
+
+      - name: competitor2_pts_won_value
+        sql: competitor2_pts_won_value
+        type: string
+
+      - name: competitor2_lead_max_value
+        sql: competitor2_lead_max_value
+        type: string
+
+      - name: competitor2_lead_max_agnst_value
+        sql: competitor2_lead_max_agnst_value
+        type: string
+
+      - name: competitor2_pts_service_won_value
+        sql: competitor2_pts_service_won_value
+        type: string
+
+      - name: competitor2_pts_opp_service_won_value
+        sql: competitor2_pts_opp_service_won_value
+        type: string
+
+      - name: competitor2_pts_service_lost_value
+        sql: competitor2_pts_service_lost_value
+        type: string
+
+      - name: competitor2_pts_opp_service_lost_value
+        sql: competitor2_pts_opp_service_lost_value
+        type: string
+
+      - name: competitor2_pts_consec_value
+        sql: competitor2_pts_consec_value
+        type: string
+
+      - name: competitor2_def_ovc_max_value
+        sql: competitor2_def_ovc_max_value
+        type: string
+
+      - name: athelete1_id
+        sql: athelete1_id
+        type: string
+
+      - name: athelete1_given_name
+        sql: athelete1_given_name
+        type: string
+
+      - name: athelete1_family_name
+        sql: athelete1_family_name
+        type: string
+
+      - name: athelete1_gender
+        sql: athelete1_gender
+        type: string
+
+      - name: athelete1_organization
+        sql: athelete1_organization
+        type: string
+
+      - name: athelete1_birth_date
+        sql: athelete1_birth_date
+        type: string
+
+      - name: athelete1_if_id
+        sql: athelete1_if_id
+        type: string
+
+      - name: athelete2_id
+        sql: athelete2_id
+        type: string
+
+      - name: athelete2_given_name
+        sql: athelete2_given_name
+        type: string
+
+      - name: athelete2_family_name
+        sql: athelete2_family_name
+        type: string
+
+      - name: athelete2_gender
+        sql: athelete2_gender
+        type: string
+
+      - name: athelete2_organization
+        sql: athelete2_organization
+        type: string
+
+      - name: athelete2_birth_date
+        sql: athelete2_birth_date
+        type: string
+
+      - name: athelete2_if_id
+        sql: athelete2_if_id
+        type: string
+
+      - name: home
+        sql: home
+        type: string
+
+      - name: away
+        sql: away
+        type: string
+
+      - name: irm1
+        sql: irm1
+        type: string
+
+      - name: irm2
+        sql: irm2
+        type: string
+
+      - name: wlt1
+        sql: wlt1
+        type: string
+
+      - name: wlt2
+        sql: wlt2
+        type: string
+
+      - name: competitor_result1
+        sql: competitor_result1
+        type: string
+
+      - name: competitor_result2
+        sql: competitor_result2
+        type: string
+
+      - name: match_score
+        sql: match_score
+        type: string
+
+      - name: game_score
+        sql: game_score
+        type: string
+
+      - name: competitor1_g1_score
+        sql: competitor1_g1_score
+        type: string
+
+      - name: competitor2_g1_score
+        sql: competitor2_g1_score
+        type: string
+
+      - name: competitor1_g2_score
+        sql: competitor1_g2_score
+        type: string
+
+      - name: competitor2_g2_score
+        sql: competitor2_g2_score
+        type: string
+
+      - name: competitor1_g3_score
+        sql: competitor1_g3_score
+        type: string
+
+      - name: competitor2_g3_score
+        sql: competitor2_g3_score
+        type: string
+
+      - name: competitor1_g4_score
+        sql: competitor1_g4_score
+        type: string
+
+      - name: competitor2_g4_score
+        sql: competitor2_g4_score
+        type: string
+
+      - name: competitor1_g5_score
+        sql: competitor1_g5_score
+        type: string
+
+      - name: competitor2_g5_score
+        sql: competitor2_g5_score
+        type: string
+
+      - name: created_date_time_utc
+        sql: created_date_time_utc
+        type: string
+
+      - name: offline_scoring
+        sql: offline_scoring
+        type: string
+
+      - name: offline_scoring_reason
+        sql: offline_scoring_reason
+        type: string
+
+      - name: competitor1_team_name
+        sql: competitor1_team_name
+        type: string
+
+      - name: competitor2_team_name
+        sql: competitor2_team_name
+        type: string
+
+      - name: athelete1d_id
+        sql: athelete1d_id
+        type: string
+
+      - name: athelete1d_given_name
+        sql: athelete1d_given_name
+        type: string
+
+      - name: athelete1d_family_name
+        sql: athelete1d_family_name
+        type: string
+
+      - name: athelete1d_gender
+        sql: athelete1d_gender
+        type: string
+
+      - name: athelete1d_organization
+        sql: athelete1d_organization
+        type: string
+
+      - name: athelete1d_birth_date
+        sql: athelete1d_birth_date
+        type: string
+
+      - name: athelete1d_if_id
+        sql: athelete1d_if_id
+        type: string
+
+      - name: athelete1d_seed
+        sql: athelete1d_seed
+        type: string
+
+      - name: athelete2d_id
+        sql: athelete2d_id
+        type: string
+
+      - name: athelete2d_given_name
+        sql: athelete2d_given_name
+        type: string
+
+      - name: athelete2d_family_name
+        sql: athelete2d_family_name
+        type: string
+
+      - name: athelete2d_gender
+        sql: athelete2d_gender
+        type: string
+
+      - name: athelete2d_organization
+        sql: athelete2d_organization
+        type: string
+
+      - name: athelete2d_birth_date
+        sql: athelete2d_birth_date
+        type: string
+
+      - name: athelete2d_if_id
+        sql: athelete2d_if_id
+        type: string
+
+      - name: athelete2d_seed
+        sql: athelete2d_seed
+        type: string
+
+      - name: competitor1_g6_score
+        sql: competitor1_g6_score
+        type: string
+
+      - name: competitor2_g6_score
+        sql: competitor2_g6_score
+        type: string
+
+      - name: competitor1_g7_score
+        sql: competitor1_g7_score
+        type: string
+
+      - name: competitor2_g7_score
+        sql: competitor2_g7_score
+        type: string
+
+      - name: start_date_local
+        sql: start_date_local
+        type: time
+
+      - name: start_date_utc
+        sql: start_date_utc
+        type: time
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

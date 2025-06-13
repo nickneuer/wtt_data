@@ -12,40 +12,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
-  # localstack:
-  #   image: localstack/localstack:latest
-  #   container_name: localstack
-  #   ports:
-  #     - "4566:4566"  # Main gateway for all services
-  #   environment:
-  #     - SERVICES=s3
-  #     - DEBUG=1
-  #     - AWS_DEFAULT_REGION=us-east-1
-  #     - AWS_ACCESS_KEY_ID=dagster
-  #     - AWS_SECRET_ACCESS_KEY=dagster123
-  #     - PERSISTENCE=1
-  #     - DATA_DIR=/var/lib/localstack/data
-
-  #   volumes:
-  #     - "./localstack:/var/lib/localstack"
-  #     - "/var/run/docker.sock:/var/run/docker.sock"
-  #     - ./localstack-data:/var/lib/localstack/data # persist storage
-
-  # # Optional: init script container to create bucket on startup
-  # s3-init:
-  #   image: amazon/aws-cli
-  #   depends_on:
-  #     - localstack
-  #   entrypoint: >
-  #     sh -c "
-  #       until aws --endpoint-url=http://localstack:4566 s3api create-bucket --bucket wtt-data; do
-  #         echo 'Waiting for LocalStack...'; sleep 2;
-  #       done
-  #     "
-  #   environment:
-  #     AWS_ACCESS_KEY_ID: dagster
-  #     AWS_SECRET_ACCESS_KEY: dagster123
-
   minio:
     image: minio/minio
     command: server /data --console-address ":9001"
@@ -84,6 +50,16 @@ services:
     depends_on:
       - postgres
       - minio
+
+  cube:
+    image: cubejs/cube:latest
+    ports:
+      - 4000:4000
+      - 15432:15432
+    environment:
+      - CUBEJS_DEV_MODE=true
+    volumes:
+      - ./semantic_layer:/cube/conf
 
 volumes:
   pgdata:
